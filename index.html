@@ -540,7 +540,7 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
 
   /* ---- tape + ticker text ---- */
   document.querySelectorAll('[data-tape]').forEach(r => { const s = `<span>${r.dataset.tape}</span>`.repeat(6); r.innerHTML = s + s; });
-  const news = ['○○고 과학실서 교사 쓰러진 채 발견','스마트워치 SOS 자동 신고… 경찰 출동','“시험 점수 이의제기 있었다” 학생 증언','과학실 앞 인파 몰려 혼잡','경찰 “15분 내 현장 도착 예정”'];
+  const news = ['서울삼육중학교 과학실서 교사 쓰러진 채 발견','스마트워치 SOS 자동 신고… 경찰 출동','“시험 점수 이의제기 있었다” 학생 증언','과학실 앞 인파 몰려 혼잡','경찰 “15분 내 현장 도착 예정”'];
   const tr = document.getElementById('tickerRun'); const tx = news.map(n=>`<span>${n}</span>`).join(''); tr.innerHTML = tx + tx;
 
   /* ---- hero headline: per-character 3D drop-in ---- */

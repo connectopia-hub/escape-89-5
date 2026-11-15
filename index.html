@@ -525,7 +525,10 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
   const rows = document.getElementById('infoRows');
   (S.info||[]).forEach(r => { rows.insertAdjacentHTML('beforeend', `<div class="row"><dt>${r.label}</dt><dd>${r.value}</dd></div>`); });
   const nl = document.getElementById('noticeList');
-  (S.notice||[]).forEach(t => nl.insertAdjacentHTML('beforeend', `<li>${t}</li>`));
+  (S.notice||[]).forEach((t, i) => {
+  const color = i === S.notice.length - 1 ? 'color:red; font-weight:bold;' : '';
+  nl.insertAdjacentHTML('beforeend', `<li style="${color}">${t}</li>`);
+});
 
   /* ---- apply buttons ---- */
   const toast = msg => { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 2600); };

@@ -52,8 +52,8 @@ a{color:inherit}
 @keyframes blink{50%{opacity:.25}}
 
 /* ---------- HERO (3D layered parallax) ---------- */
-.hero{position:relative;height:190vh}
-.hero-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;perspective:900px;perspective-origin:50% 45%;background:#050406}
+.hero{position:relative;height:100vh;height:100svh}
+.hero-stick{position:relative;height:100%;overflow:hidden;perspective:900px;perspective-origin:50% 45%;background:#050406}
 .scene{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
 .layer{position:absolute;transform-style:preserve-3d}
 .l-bg{inset:-18%;transform:translateZ(-420px) scale(1.5)}
@@ -79,7 +79,7 @@ a{color:inherit}
 .tape .run{display:flex;animation:tape 22s linear infinite}
 @keyframes tape{to{transform:translateX(-50%)}}
 .t1{top:16%;transform:translateZ(160px) rotate(-8deg)}
-.t2{bottom:12%;transform:translateZ(260px) rotate(6deg);filter:blur(1.5px)}
+.t2{bottom:26%;transform:translateZ(260px) rotate(6deg);filter:blur(1.5px)}
 .t2 .run{animation-direction:reverse;animation-duration:28s}
 
 /* floating evidence chips */
@@ -90,7 +90,7 @@ a{color:inherit}
 .c2{top:62%;right:8%;transform:translateZ(120px) rotate(3deg)}
 .c3{top:24%;right:12%;transform:translateZ(-40px) rotate(2deg)}
 
-.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px;transform:translateZ(40px);z-index:5}
+.hero-copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px 120px;transform:translateZ(40px);z-index:5}
 .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.35em;color:#ff8a98;margin-bottom:18px}
 .kicker::before{content:"● ";color:var(--red);animation:blink 1s steps(2) infinite}
 .confess{font-family:var(--title);font-weight:900;font-size:clamp(40px,7.6vw,100px);line-height:1.18;letter-spacing:-.02em;color:#fff;
@@ -101,8 +101,15 @@ a{color:inherit}
 .hero-sub{margin-top:22px;font-size:clamp(15px,2.2vw,19px);color:#cfc9d2;max-width:34em}
 .hero-sub b{color:#fff}
 .hero-cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--muted);z-index:6}
-.scroll-hint::after{content:"";display:block;width:1px;height:34px;margin:8px auto 0;background:linear-gradient(var(--red),transparent);animation:hint 1.6s ease-in-out infinite}
+.scroll-cue{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);z-index:7;display:flex;flex-direction:column;align-items:center;gap:14px;background:none;border:0;cursor:pointer;color:#fff;font:700 15px/1 "Noto Sans KR",sans-serif;transition:opacity .3s}
+.cue-txt{padding:10px 18px;border-radius:999px;white-space:nowrap;background:rgba(10,6,8,.72);border:1px solid rgba(255,36,64,.6);box-shadow:0 0 22px rgba(255,36,64,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s}
+.scroll-cue:hover .cue-txt{background:rgba(255,36,64,.3)}
+.cue-arrows{display:flex;flex-direction:column;align-items:center;height:34px}
+.cue-arrows i{display:block;width:16px;height:16px;margin-top:-6px;border-right:3px solid var(--red);border-bottom:3px solid var(--red);opacity:0;filter:drop-shadow(0 0 6px var(--red));animation:cue 1.4s infinite}
+.cue-arrows i:nth-child(2){animation-delay:.18s}.cue-arrows i:nth-child(3){animation-delay:.36s}
+@keyframes cue{0%{opacity:0;transform:translateY(-6px) rotate(45deg)}50%{opacity:1}100%{opacity:0;transform:translateY(8px) rotate(45deg)}}
+.hero-stick .ticker{position:absolute;left:0;right:0;bottom:0;transform:none;z-index:8}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:92;background:var(--red);box-shadow:0 0 10px var(--red);transform-origin:left;transform:scaleX(0)}
 @keyframes hint{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ---------- 3D Buttons ---------- */
@@ -294,7 +301,11 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
   .hud{top:10px;right:10px;padding:6px 10px}
   .hud b{font-size:20px}
   .c3,.c2{display:none}
-  .c1{top:auto;bottom:24%;left:6%}
+  .c1{display:none}
+  .t2{bottom:21%}
+  .scroll-cue{bottom:58px}
+  .cue-txt{font-size:14px;padding:9px 16px}
+  .hero-copy{padding-bottom:130px}
   .confess{font-size:clamp(44px,12.5vw,62px)}
   .t1{top:9%}
   .chip{font-size:11px}
@@ -308,6 +319,7 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
 </style>
 </head>
 <body>
+<div class="progress" id="progress" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="scan" aria-hidden="true"></div>
 
@@ -341,14 +353,16 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
         <a class="btn ghost" href="#teaser">▶ 예고편 보기</a>
       </div>
     </div>
-    <div class="scroll-hint">SCROLL</div>
+    <button class="scroll-cue" id="scrollCue" type="button" aria-label="아래로 스크롤해서 사건 내용 보기">
+      <span class="cue-txt">스크롤해서 사건 현장으로</span>
+      <span class="cue-arrows" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <div class="ticker" aria-label="속보">
+      <div class="tag">속보</div>
+      <div class="track"><div class="run" id="tickerRun"></div></div>
+    </div>
   </div>
 </header>
-
-<div class="ticker" aria-label="속보">
-  <div class="tag">속보</div>
-  <div class="track"><div class="run" id="tickerRun"></div></div>
-</div>
 
 <main>
 <!-- ============ STORY ============ -->
@@ -581,18 +595,22 @@ footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--muted);
   /* ---- hero 3D camera + scroll-driven 3D ---- */
   const hero = document.querySelector('.hero'), scene = document.getElementById('scene'), copy = document.getElementById('heroCopy'), mbar = document.getElementById('mbar');
   const s3d = [...document.querySelectorAll('[data-scroll3d]')];
+  const cue = document.getElementById('scrollCue'), prog = document.getElementById('progress');
+  cue.addEventListener('click', () => document.getElementById('story').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
   let mx = 0, my = 0, tx2 = 0, ty2 = 0;
   if (fine) addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; });
   else if (!reduce) { let t0 = performance.now(); (function idle(t){ mx = Math.sin((t - t0)/2600)*.18; my = Math.cos((t - t0)/3400)*.12; requestAnimationFrame(idle); })(t0); }
   const clamp = (v,a,b) => Math.min(b, Math.max(a, v));
   function frame(){
     tx2 += (mx - tx2)*.06; ty2 += (my - ty2)*.06;
-    const vh = innerHeight, max = hero.offsetHeight - vh, p = clamp(-hero.getBoundingClientRect().top / max, 0, 1);
+    const vh = innerHeight, p = clamp(-hero.getBoundingClientRect().top / hero.offsetHeight, 0, 1);
+    cue.style.opacity = clamp(1 - p*5, 0, 1); cue.style.pointerEvents = p > .15 ? 'none' : '';
+    prog.style.transform = `scaleX(${(scrollY / Math.max(1, document.documentElement.scrollHeight - vh)).toFixed(4)})`;
     if (!reduce) {
-      scene.style.transform = `translateZ(${p*520}px) rotateX(${(-ty2*7 + p*6).toFixed(2)}deg) rotateY(${(tx2*10).toFixed(2)}deg)`;
-      copy.style.transform = `translateZ(40px) translateY(${-p*120}px) scale(${1 + p*.25})`;
+      scene.style.transform = `translateZ(${p*420}px) rotateX(${(-ty2*7 + p*6).toFixed(2)}deg) rotateY(${(tx2*10).toFixed(2)}deg)`;
+      copy.style.transform = `translateZ(40px) translateY(${p*vh*.35}px) scale(${1 + p*.12})`;
     }
-    copy.style.opacity = clamp(1 - p*1.8, 0, 1);
+    copy.style.opacity = clamp(1 - p*1.4, 0, 1);
     s3d.forEach(el => { const r = el.getBoundingClientRect(); el.style.setProperty('--p', clamp((vh - r.top)/(vh*.85), 0, 1).toFixed(3)); });
     mbar.classList.toggle('show', scrollY > vh*.9 && document.getElementById('apply').getBoundingClientRect().top > vh*.6);
     requestAnimationFrame(frame);

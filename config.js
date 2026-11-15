@@ -8,7 +8,7 @@ window.SITE = {
   subtitle: "과학실 15분",
 
   // [미정] 구글폼 신청 링크 — 비워두면 "신청 준비 중" 안내가 뜹니다
-  formUrl: "",
+  formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSd8LifneCuePH0RQ-b3VbSZXaw9vP_o8GLbIx4Unf5hVP90Rg/viewform",
 
   // [임시] 운영 주체
   host: "○○고등학교 ○○동아리",

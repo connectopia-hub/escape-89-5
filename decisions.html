@@ -86,7 +86,7 @@ textarea:focus{outline:2px solid rgba(255,36,64,.5);border-color:transparent}
 <script>
 const ITEMS = [
   {n:1, g:'req', label:'구글폼 신청 링크', desc:'신청 버튼을 누르면 이동할 주소. 구글폼에서 [보내기] → 링크 복사.', now:'없음 (누르면 "곧 열립니다" 안내)', where:'config.js → formUrl', ph:'https://forms.gle/...'},
-  {n:2, g:'req', label:'운영 주체', desc:'학교·동아리 이름. 페이지 맨 아래에 표시돼요.', now:'○○고등학교 ○○동아리', where:'config.js → host'},
+  {n:2, g:'req', label:'운영 주체', desc:'학교·동아리 이름. 페이지 맨 아래에 표시돼요.', now:'서울삼육중학교 시넥스', where:'config.js → host'},
   {n:3, g:'req', label:'일시', desc:'축제 날짜와 운영 시간.', now:'축제 1·2일차 10:00 – 16:00', where:'config.js → info'},
   {n:4, g:'req', label:'장소', desc:'부스가 열리는 곳.', now:'본관 3층 과학실', where:'config.js → info'},
   {n:5, g:'req', label:'회차당 인원', desc:'한 번에 들어가는 인원.', now:'2 – 4명', where:'config.js → info'},
@@ -99,7 +99,7 @@ const ITEMS = [
   {n:11, g:'opt', label:'참가 안내 문구 (3줄)', desc:'사건 파일 아래 안내. 한 줄에 하나씩 적어 주세요.', now:'5분 전 도착 / 소품은 안전, 무리한 힘 금지 / 어두운 조명·효과음, 언제든 중단 가능', where:'config.js → notice'},
   {n:12, g:'opt', label:'시험지 소품 문구', desc:'스토리 섹션 시험지의 시험명·문항.', now:'2학기 중간고사 · 과학 / 서술형 4번', where:'index.html (시험지)'},
   {n:13, g:'opt', label:'미션 카드 설명', desc:'실제 퍼즐 구성에 맞게 바꿀지. 그대로면 "그대로"라고 적어 주세요.', now:'추리하라 / 지워라 / 탈출하라', where:'index.html (미션 카드)'},
-  {n:14, g:'opt', label:'시험지 학년·반 표기', desc:'시험지 상단 이름 칸.', now:'3학년 ○반 ○번 · 이름: 나', where:'index.html (시험지)'},
+  {n:14, g:'opt', label:'시험지 학년·반 표기', desc:'시험지 상단 이름 칸.', now:'o학년 ○반 ○번 · 이름: 나', where:'index.html (시험지)'},
 ];
 const KEY = 'escape895-decisions';
 let saved = {};
